@@ -15,6 +15,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: corepack bug fix. see  https://github.com/nodejs/corepack/issues/612
+      run: corepack prepare pnpm@10.0.0 --activate
+      shell: bash
+
     - name: Use Specific Pnpm Version By Corepack
       run: corepack enable
       shell: bash
