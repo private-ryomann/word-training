@@ -41,6 +41,16 @@ jobs:
           AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
         run: pnpm run build
 
+      - name: Generate Database Migrations
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm run db:generate
+
+      - name: Run Database Migration
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm run db:migrate
+
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
