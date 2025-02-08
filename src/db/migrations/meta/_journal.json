@@ -1,13 +1,20 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1738770699587,
-      "tag": "0000_volatile_warbound",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1738770699587,
+			"tag": "0000_volatile_warbound",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1739026923877,
+			"tag": "0001_living_gabe_jones",
+			"breakpoints": true
+		}
+	]
 }
