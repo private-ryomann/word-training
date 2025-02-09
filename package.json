@@ -18,9 +18,6 @@
 		"db:migrate": "drizzle-kit migrate",
 		"prepare": "husky"
 	},
-	"lint-staged": {
-		"**/*.{js,jsx,ts,tsx}": "pnpm run check"
-	},
 	"dependencies": {
 		"@auth/drizzle-adapter": "^1.7.3",
 		"@neondatabase/serverless": "^0.10.1",
