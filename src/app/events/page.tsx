@@ -14,16 +14,10 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { format } from "date-fns";
+import { FaCirclePlus } from "react-icons/fa6";
+
 /**
  * イベント一覧表示画面
  */
@@ -119,13 +113,13 @@ export default function EventsPage() {
 				<div className="flex flex-col mt-3">
 					{events.map((event) => (
 						<Card key={event.id} className="mt-3">
-							<CardHeader className="p-4">
+							<CardHeader className="p-3">
 								<CardTitle>{event.title}</CardTitle>
 							</CardHeader>
-							<CardContent>
+							<CardContent className="p-3 pt-0">
 								<p>{format(event.occurredAt, "yyyy-MM-dd")}</p>
 							</CardContent>
-							<CardFooter className="p-4 pt-0">
+							<CardFooter className="p-3 pt-0">
 								<div className="flex flex-row">
 									{event.tags.map((tag) => (
 										<Badge key={tag.id} className="mr-2">
@@ -137,6 +131,10 @@ export default function EventsPage() {
 						</Card>
 					))}
 				</div>
+				<FaCirclePlus
+					size={50}
+					className="fixed bottom-3 right-5 text-primary "
+				/>
 			</main>
 		</>
 	);
