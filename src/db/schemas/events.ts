@@ -6,6 +6,7 @@ import {
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
+import { createSelectSchema } from "drizzle-zod";
 import { users } from "./users";
 
 export const eventStatus = pgEnum("status", ["pending", "finished"]);
@@ -24,3 +25,5 @@ export const events = pgTable("event", {
 	createdAt: timestamp("createdAt").notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export const selectUserSchema = createSelectSchema(events);

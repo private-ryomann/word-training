@@ -17,7 +17,7 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { format } from "date-fns";
 import { FaCirclePlus } from "react-icons/fa6";
-
+import { RxCross2 } from "react-icons/rx";
 /**
  * イベント一覧表示画面
  */
@@ -87,12 +87,20 @@ const events = [
 export default function EventsPage() {
 	return (
 		<>
-			<header className="h-10 bg-primary">
+			<header className="h-10 bg-primary p-1">
 				<Drawer direction="left">
-					<DrawerTrigger>Open</DrawerTrigger>
+					<DrawerTrigger>
+						<div className="p-1">
+							<span className="block w-6 h-[3px] bg-white my-1" />
+							<span className="block w-6 h-[3px] bg-white my-1" />
+							<span className="block w-6 h-[3px] bg-white my-1" />
+						</div>
+					</DrawerTrigger>
 					<DrawerContent className="h-screen w-40 rounded-t-none rounded-r-md">
-						<DrawerHeader>
-							<DrawerClose>close</DrawerClose>
+						<DrawerHeader className="p-2">
+							<DrawerClose className="flex flex-row justify-end">
+								<RxCross2 size={25} />
+							</DrawerClose>
 						</DrawerHeader>
 						<DrawerTitle>
 							<VisuallyHidden />
