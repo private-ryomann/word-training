@@ -1,4 +1,6 @@
 import { pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import type { z } from "zod";
 
 export const tags = pgTable("tag", {
 	id: serial("id").primaryKey(),
@@ -7,3 +9,9 @@ export const tags = pgTable("tag", {
 	createdAt: timestamp("createdAt").notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export const selectTagSchema = createSelectSchema(tags);
+export type selectTag = z.infer<typeof selectTagSchema>;
+
+export const insertTagSchema = createInsertSchema(tags);
+export type insertEventTag = z.infer<typeof insertTagSchema>;

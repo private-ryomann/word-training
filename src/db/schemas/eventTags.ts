@@ -1,4 +1,6 @@
 import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import type { z } from "zod";
 import { events } from "./events";
 import { tags } from "./tags";
 
@@ -16,3 +18,9 @@ export const eventTags = pgTable(
 		};
 	},
 );
+
+export const selectEventTagSchema = createSelectSchema(eventTags);
+export type selectEventTag = z.infer<typeof selectEventTagSchema>;
+
+export const insertEventTagSchema = createInsertSchema(eventTags);
+export type insertEventTag = z.infer<typeof insertEventTagSchema>;
