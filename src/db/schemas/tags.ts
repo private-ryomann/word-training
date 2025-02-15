@@ -1,6 +1,8 @@
+import { relations } from "drizzle-orm";
 import { pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import type { z } from "zod";
+import { eventTags } from "./eventTags";
 
 export const tags = pgTable("tag", {
 	id: serial("id").primaryKey(),
@@ -9,6 +11,10 @@ export const tags = pgTable("tag", {
 	createdAt: timestamp("createdAt").notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export const tagsRelations = relations(tags, ({ many }) => ({
+	eventTags: many(eventTags),
+}));
 
 export const selectTagSchema = createSelectSchema(tags);
 export type selectTag = z.infer<typeof selectTagSchema>;

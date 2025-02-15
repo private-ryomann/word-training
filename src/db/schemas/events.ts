@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
 	pgEnum,
 	pgTable,
@@ -8,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import type { z } from "zod";
+import { eventTags } from "./eventTags";
 import { users } from "./users";
 
 export const eventStatus = pgEnum("status", ["pending", "finished"]);
@@ -26,6 +28,10 @@ export const events = pgTable("event", {
 	createdAt: timestamp("createdAt").notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export const eventsRelations = relations(events, ({ many }) => ({
+	eventTags: many(eventTags),
+}));
 
 export const selectEventSchema = createSelectSchema(events);
 export type selectEvent = z.infer<typeof selectEventSchema>;

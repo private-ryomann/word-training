@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import type { z } from "zod";
@@ -18,6 +19,17 @@ export const eventTags = pgTable(
 		};
 	},
 );
+
+export const eventTagsRelations = relations(eventTags, ({ one }) => ({
+	event: one(events, {
+		fields: [eventTags.eventId],
+		references: [events.id],
+	}),
+	tag: one(tags, {
+		fields: [eventTags.tagId],
+		references: [tags.id],
+	}),
+}));
 
 export const selectEventTagSchema = createSelectSchema(eventTags);
 export type selectEventTag = z.infer<typeof selectEventTagSchema>;
