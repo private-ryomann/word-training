@@ -26,80 +26,14 @@ import { RxCross2 } from "react-icons/rx";
 /**
  * イベント一覧表示画面
  */
-
-const sampleTags = [
-	{
-		id: 1,
-		title: "タグ1",
-		color: "",
-	},
-	{
-		id: 2,
-		title: "タグ2",
-		color: "",
-	},
-	{
-		id: 3,
-		title: "タグ3",
-		color: "",
-	},
-];
-
-const eventSamples = [
-	{
-		id: 1,
-		title: "イベント1",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: [],
-	},
-	{
-		id: 2,
-		title: "イベント2",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: tags,
-	},
-	{
-		id: 3,
-		title: "イベント3",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: tags,
-	},
-	{
-		id: 4,
-		title: "イベント4",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: tags,
-	},
-	{
-		id: 5,
-		title: "イベント5",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: tags,
-	},
-	{
-		id: 6,
-		title: "イベント6",
-		occurredAt: new Date(),
-		status: "pending",
-		tags: tags,
-	},
-];
 export default async function EventsPage() {
-	const selectedEvents = await db
-		.select()
-		.from(events)
-		.innerJoin(eventTags, eq(eventTags.eventId, events.id))
-		.innerJoin(tags, eq(tags.id, eventTags.tagId))
-		.where(eq(events.userId, "9cebcb55-7b7c-4280-80f0-6f261c038bc1"));
-
-	const Events = await db.query.events.findMany({
+	const events = await db.query.events.findMany({
 		with: {
-			tags: true,
+			eventTags: {
+				with: {
+					tag: true,
+				},
+			},
 		},
 		where: (events, { eq }) =>
 			eq(events.userId, "9cebcb55-7b7c-4280-80f0-6f261c038bc1"),
@@ -131,15 +65,17 @@ export default async function EventsPage() {
 			<main className="h-[calc(h-screen - h-10)] p-2">
 				<div className="flex flex-col">
 					<div className="flex flex-row">
-						{sampleTags.map((tag) => (
-							<Badge key={tag.id} className="mr-2">
-								{tag.title}
-							</Badge>
-						))}
+						{events.map((event) =>
+							event.eventTags.map((eventTag) => {
+								return eventTag.tag ? (
+									<Badge key={eventTag.tag.id}>{eventTag.tag.name}</Badge>
+								) : null;
+							}),
+						)}
 					</div>
 				</div>
 				<div className="flex flex-col mt-3">
-					{eventSamples.map((event) => (
+					{events.map((event) => (
 						<Card key={event.id} className="mt-3">
 							<CardHeader className="p-3">
 								<CardTitle>{event.title}</CardTitle>
@@ -149,11 +85,13 @@ export default async function EventsPage() {
 							</CardContent>
 							<CardFooter className="p-3 pt-0">
 								<div className="flex flex-row">
-									{event.tags.map((tag) => (
-										<Badge key={tag.id} className="mr-2">
-											{tag.title}
-										</Badge>
-									))}
+									{event.eventTags.map((eventTag) => {
+										return eventTag.tag ? (
+											<Badge key={eventTag.tag.id} className="mr-2">
+												{eventTag.tag.name}
+											</Badge>
+										) : null;
+									})}
 								</div>
 							</CardFooter>
 						</Card>
