@@ -38,3 +38,5 @@ export type selectEvent = z.infer<typeof selectEventSchema>;
 
 export const insertEventSchema = createInsertSchema(events);
 export type insertEvent = z.infer<typeof insertEventSchema>;
+
+export const EventStatusSchema = createSelectSchema(eventStatus);

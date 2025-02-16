@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
 import { url, envsafe, str } from "envsafe";
 import { browserEnv } from "./browserEnv";
+
+dotenv.config();
 
 const serverEnv = {
 	...browserEnv,

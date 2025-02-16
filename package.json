@@ -16,6 +16,7 @@
 		"test:run": "vitest run",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
+		"db:seed": "node -r esbuild-register ./src/db/seed.ts",
 		"prepare": "husky"
 	},
 	"dependencies": {
